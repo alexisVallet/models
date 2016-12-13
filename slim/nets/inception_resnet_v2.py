@@ -170,6 +170,7 @@ def inception_resnet_v2(inputs, num_classes=1001, is_training=True,
 
         end_points['Mixed_5b'] = net
         net = slim.repeat(net, 10, block35, scale=0.17)
+        end_points['35x35x320'] = net
 
         # 17 x 17 x 1024
         with tf.variable_scope('Mixed_6a'):
@@ -190,6 +191,7 @@ def inception_resnet_v2(inputs, num_classes=1001, is_training=True,
 
         end_points['Mixed_6a'] = net
         net = slim.repeat(net, 20, block17, scale=0.10)
+        end_points['17x17x1024'] = net
 
         # Auxillary tower
         with tf.variable_scope('AuxLogits'):
@@ -231,6 +233,7 @@ def inception_resnet_v2(inputs, num_classes=1001, is_training=True,
 
         net = slim.conv2d(net, 1536, 1, scope='Conv2d_7b_1x1')
         end_points['Conv2d_7b_1x1'] = net
+        end_points['8x8x1536'] = net
 
         with tf.variable_scope('Logits'):
           end_points['PrePool'] = net
